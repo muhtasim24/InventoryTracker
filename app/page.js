@@ -76,6 +76,7 @@ export default function Home() {
     width="100vw" 
     height="100vh" 
     display="flex" 
+    flexDirection="column"
     justifyContent="center"
     alignItems = "center"
     gap={2}
@@ -126,6 +127,25 @@ export default function Home() {
       }}>
         Add New Item
     </Button>
+    <Box border="1px solid #333">
+      <Box
+        width="800px"
+        height="100px"
+        bgcolor="#ADD8E6"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Typography variant="h2" color="#333">
+          Inventory Items 
+        </Typography>
+      </Box>
+    </Box>
+    <Stack width = "800px" height = "300px" spacing={2} overflow="auto">
+      {
+        inventory.map()
+      }
+    </Stack>
   </Box>
   )
 }
