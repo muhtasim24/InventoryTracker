@@ -2,13 +2,13 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { firestore } from "@/firebase";
-import { Box, Modal, Typography, Stack, TextField } from "@mui/material";
+import { Box, Modal, Typography, Stack, TextField, Button } from "@mui/material";
 import { async } from "@firebase/util";
 import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc } from "firebase/firestore";
 
 export default function Home() {
   const [inventory, setInventory] = useState([]) //state var used to store inventory
-  const [open, setOpen] = useState(true) // state var used to add/remove 
+  const [open, setOpen] = useState(false) // state var used to add/remove 
   const [itemName, setItemName] = useState('') // used to store name of item
 
   // async means it wont block our code when fetching
@@ -107,13 +107,15 @@ export default function Home() {
               setItemName(e.target.value)
             }}
           />
-          <Button>
+          <Button
             variant="outlined"
             onClick={() => {
               addItem(itemName)
               setItemName('')
               handleClose()
             }}
+          >
+            Add
           </Button>
         </Stack>
       </Box>
