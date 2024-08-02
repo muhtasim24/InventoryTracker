@@ -29,6 +29,20 @@ export default function Home() {
     setInventory(inventoryList)
   }
 
+  const addItem = async (item) => {
+    const docRef = doc(collection(firestore, 'inventory'), item)
+    const docSnap = await getDoc(docRef)
+
+    // if snap exists, increment quantity by 1
+    if (docSnap.exists()) {
+      const {quantity} = docSnap.data()
+      await setDoc(docRef, {quantity: quantity + 1})
+    } else { // doesnt exist so set quantity to 1
+      await setDoc(docRef, {quantity: 1})
+    }
+    await updateInventory()
+  }
+
   const removeItem = async (item) => {
     // get document reference if it exists
     const docRef = doc(collection(firestore, 'inventory'), item)
