@@ -30,14 +30,18 @@ export default function Home() {
   }
 
   const removeItem = async (item) => {
+    // get document reference if it exists
     const docRef = doc(collection(firestore, 'inventory'), item)
     const docSnap = await getDoc(docRef)
-
+    
     if(docSnap.exists()) {
       const {quantity} = docSnap.data()
+
+      // if quantity is only 1, delete the doc
       if (quantity == 1) {
         await deleteDoc(docRef)
       }
+      // if there are multiple just decrease the quantity by 1
       else {
         await setDoc(docRef, {quantity: quantity - 1})
       }
