@@ -120,7 +120,12 @@ export default function Home() {
         </Stack>
       </Box>
     </Modal>
-    <Typography variant="h1"> Inventory Management </Typography>
+    <Button 
+      variant = "contained" onClick={() => {
+        handleOpen()
+      }}>
+        Add New Item
+    </Button>
   </Box>
   )
 }
