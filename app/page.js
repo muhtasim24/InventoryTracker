@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { firestore } from "@/firebase";
-import { Box, Modal, Typography, Stack, TextField, Button } from "@mui/material";
+import { Box, Modal, Typography, Stack, TextField, Button} from "@mui/material";
 import { async } from "@firebase/util";
 import { collection, deleteDoc, doc, getDoc, getDocs, query, setDoc } from "firebase/firestore";
 
@@ -10,6 +10,9 @@ export default function Home() {
   const [inventory, setInventory] = useState([]) //state var used to store inventory
   const [open, setOpen] = useState(false) // state var used to add/remove 
   const [itemName, setItemName] = useState('') // used to store name of item
+  const [searchQuery, setSearchQuery] = useState('')
+  const [filteredItems, setFilteredItems] = useState([])
+
 
   // async means it wont block our code when fetching
   // blocking code when fetching means the entire website freezes when fetching
@@ -71,6 +74,17 @@ export default function Home() {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
+  useEffect(() => {
+    if (searchQuery) {
+      const filtered = inventory.filter(item => 
+        item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+        setFilteredItems(filtered);
+    } else {
+      setFilteredItems(inventory);
+    }
+  }, [searchQuery])
+  console.log(inventory)
+
   return (
   <Box 
     width="100vw" 
@@ -127,6 +141,13 @@ export default function Home() {
       }}>
         Add New Item
     </Button>
+    <TextField
+          sx={{width:800}}
+          variant="outlined"
+          label="Search Inventory"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
     <Box border="1px solid #333">
       <Box
         width="800px"
@@ -142,7 +163,7 @@ export default function Home() {
       </Box>
     <Stack width = "800px" height = "300px" spacing={2} overflow="auto">
       {
-        inventory.map(({name, quantity}) => (
+        filteredItems.map(({name, quantity}) => (
           <Box 
           key = {name} 
           width="100%"
