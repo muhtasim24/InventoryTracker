@@ -155,12 +155,13 @@ export default function Home() {
     <Box border="3px solid #333">
       <Box
         width="800px"
-        height="100px"
-        bgcolor="#ADD8E6"
+        height="80px"
+        bgcolor="#191970"
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
+        <Typography variant="h5" color="white" textAlign ='right'> Items </Typography>
       </Box>
     <Stack width = "800px" height = "300px" spacing={2} overflow="auto">
       {
@@ -168,18 +169,19 @@ export default function Home() {
           <Box 
           key = {name} 
           width="100%"
-          minHeight="100px"
+          minHeight="50px"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
-          bgColor="#f0f0f0"
-          padding={5}
-          border="2px solid red"
+          bgcolor="#808080"
+          padding={6}
+          border="2px solid #333"
+          borderRadius='20px'
           >
-            <Typography variant="h3" color='#333' textAlign='center'>
+            <Typography variant="h3" color='white' textAlign='center'>
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </Typography>
-            <Typography variant="h3" color='#333' textAlign='center'>
+            <Typography variant="h3" color='white' textAlign='center'>
               {quantity}
             </Typography>
             <Stack direction="row" spacing={2}>
