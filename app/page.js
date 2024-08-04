@@ -82,7 +82,7 @@ export default function Home() {
     } else {
       setFilteredItems(inventory);
     }
-  }, [searchQuery])
+  }, [searchQuery, inventory])
   console.log(inventory)
 
   return (
@@ -135,20 +135,24 @@ export default function Home() {
         </Stack>
       </Box>
     </Modal>
+    <Typography variant="h2" color="#333">
+      Inventory Items 
+    </Typography>
+    <TextField
+      sx={{width:800}}
+      variant="outlined"
+      label="Search Inventory"
+      value={searchQuery}
+      onChange={(e) => setSearchQuery(e.target.value)}
+    />
     <Button 
       variant = "contained" onClick={() => {
         handleOpen()
       }}>
         Add New Item
     </Button>
-    <TextField
-          sx={{width:800}}
-          variant="outlined"
-          label="Search Inventory"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-    <Box border="1px solid #333">
+
+    <Box border="3px solid #333">
       <Box
         width="800px"
         height="100px"
@@ -157,9 +161,6 @@ export default function Home() {
         alignItems="center"
         justifyContent="center"
       >
-        <Typography variant="h2" color="#333">
-          Inventory Items 
-        </Typography>
       </Box>
     <Stack width = "800px" height = "300px" spacing={2} overflow="auto">
       {
@@ -167,12 +168,13 @@ export default function Home() {
           <Box 
           key = {name} 
           width="100%"
-          minHeight="150px"
+          minHeight="100px"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
           bgColor="#f0f0f0"
           padding={5}
+          border="2px solid red"
           >
             <Typography variant="h3" color='#333' textAlign='center'>
               {name.charAt(0).toUpperCase() + name.slice(1)}
